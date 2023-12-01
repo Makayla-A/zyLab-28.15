@@ -17,7 +17,15 @@ void PrintMenu(const string playlistTitle) {
 PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headNode) {
    //STEP 4 (complete)
    if (char == 'a'){
-    //ADD SONG (STEP 7)   
+    //ADD SONG (STEP 7) 
+    cout << "Enter song's unique ID: " << endl;
+    cin >> uniqueID;
+    cout << "Enter song's name: " << endl;
+    cin >> songName;
+    cout << "Enter artist's name: " << endl;
+    cin >> artistName;
+    cout << "Enter song's length (in seconds): " << endl;
+    cin >> songLength;
    }else if (char == 'd'){
     //REMOVE SONG (STEP 8) 
    }else if (char == 'c'){
