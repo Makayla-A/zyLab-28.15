@@ -6,7 +6,7 @@ using namespace std;
 
 void PrintMenu(const string playlistTitle) {
    //STEP 3
-   cout << playlistTitle << "PLAYLIST MENU" << endl;
+   cout << playlistTitle << " PLAYLIST MENU" << endl;
    cout << "a - Add song\n"
         << "d - Remove song\n"
         << "c - Change position of song\n"
@@ -19,9 +19,10 @@ void PrintMenu(const string playlistTitle) {
 
 //STEP 4 
 PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headNode) {
-
+   
+   //ADD SONG  (STEP 7)
    if (option == 'a'){
-    //ADD SONG  (STEP 7)
+    cout << "ADD SONG: " << endl;
     string uniqueID;
     string songName;
     string artistName;
@@ -78,16 +79,17 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
 
 int main() {
    //STEP 2
-   cout << " Enter playlist's title: :" << endl;
+   cout << "Enter playlist's title:" << endl;
+   cout << endl; 
    string playlistTitle;
-   cin >> playlistTitle;
+   getline(cin, playlistTitle);
    
    PlaylistNode* headNode = nullptr;
    
    char option; 
    do{
      PrintMenu(playlistTitle); 
-      cout << "Choose an option: ";
+      cout << endl <<"Choose an option:"<< endl;
       cin >> option;
       
       //if an invadid character is entered, continue promting 
@@ -96,10 +98,8 @@ int main() {
             cout << "Invalid choice. Choose a valid character: ";
             cin >> option;
                }
-               
-            headNode = ExecuteMenu(option, playlistTitle, headNode); //update head
-            
-            PrintMenu(playlistTitle); //print menu again after they pick, keeps going till q
+            headNode = ExecuteMenu(option, playlistTitle, headNode); // update head
+            //PrintMenu(playlistTitle); //print menu again after they pick, keeps going till q
                
    }while (option != 'q');
    
