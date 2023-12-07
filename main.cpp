@@ -3,6 +3,7 @@
 
 using namespace std;
 
+
 void PrintMenu(const string playlistTitle) {
    //STEP 3
    cout << playlistTitle << "PLAYLIST MENU" << endl;
@@ -13,40 +14,48 @@ void PrintMenu(const string playlistTitle) {
         << "t - Output total time of playlist (in seconds)\n"
         << "o - Output full playlist\n"
         << "q - Quit" << endl;
+   
 }
+
+//STEP 4 
 PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headNode) {
-   //STEP 4 
-   if (option == 'a'){   //ADD SONG  (STEP 7)
-      
+
+   if (option == 'a'){
+    //ADD SONG  (STEP 7)
+    string uniqueID;
+    string songName;
+    string artistName;
+    int songLength;
+   
     cout << "Enter song's unique ID: " << endl;
-    cin >> uniqueID;
+    cin.ignore();
+    getline(cin, uniqueID);
     
     cout << "Enter song's name: " << endl;
     cin.ignore();
     getline(cin, songName);
     
     cout << "Enter artist's name: " << endl;
-    cin.ignore();
     getline(cin, artistName);
     
     cout << "Enter song's length (in seconds): " << endl;
     cin >> songLength;
     
-    // create a new PlaylistNode with the entered info
+    // add the new node to the playlist 
     
    PlaylistNode* newNode = new PlaylistNode(uniqueID, songName, artistName, songLength);
    
-   // If the list is empty, make the new node the head
+   // if the list is empty, make the new node the head
         if (headNode == nullptr) {
             headNode = newNode;
         } else {
-            // Traverse the list to find the last node
+            // go through the list to find the last node
             PlaylistNode* current = headNode;
-            while (current->GetNext() != nullptr) {  //while the next node is not empty
+            while (current->GetNext() != nullptr) {  
                 current = current->GetNext();   //go through all of the nodes until the last one 
             } 
             // Add the new node after the last node
-            current->SetNext(newNode);
+            current->InsertAfter(newNode);
         }
 
    }else if (option == 'd'){
@@ -63,13 +72,36 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
     //QUIT 
    }
    
+   return headNode;
+   
 }
 
 int main() {
    //STEP 2
    cout << " Enter playlist's title: :" << endl;
+   string playlistTitle;
    cin >> playlistTitle;
+   
+   PlaylistNode* headNode = nullptr;
+   
+   char option; 
+   do{
+     PrintMenu(playlistTitle); 
+      cout << "Choose an option: ";
+      cin >> option;
+      
+      //if an invadid character is entered, continue promting 
+       while (option != 'a' && option != 'd' && option != 'c' &&
+               option != 's' && option != 't' && option != 'o' && option != 'q') {
+            cout << "Invalid choice. Choose a valid character: ";
+            cin >> option;
+               }
+               
+            headNode = ExecuteMenu(option, playlistTitle, headNode); //update head
+            
+            PrintMenu(playlistTitle); //print menu again after they pick, keeps going till q
+               
+   }while (option != 'q');
    
    return 0;
 }
-
