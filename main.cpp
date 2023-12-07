@@ -85,14 +85,14 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
             headNode = headNode->GetNext();
          }
       } 
-    }
-   }else if (option == 'q'){
+    
+   } else if (option == 'q'){
     //QUIT 
-   }
-   
-   return headNode;
-   
+    }
+    return headNode;
 }
+   
+   
 
 int main() {
    //STEP 2
