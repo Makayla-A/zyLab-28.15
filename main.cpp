@@ -67,8 +67,25 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
     //OUTPUT SONGS BY SPESIFIC ARTIST   
    }else if (option == 't'){
     //OUTPUT TOTAL TILE OF PLAYLIST  
-   }else if (option == 'o'){
-    //OUTPUT FULL PLAYLIST 
+   }else if (option == 'o')
+   {
+      //OUTPUT FULL PLAYLIST
+      cout << playlistTitle << " - OUTPUT FULL PLAYLIST" << endl;
+      //step 6: output full playlist
+      if (headNode == nullptr)
+      {
+         cout << "Playlist is empty" << endl;
+      }
+      //PlaylistNode* curr = headNode;
+      else
+      {
+         while (headNode != nullptr)
+         {
+            headNode->PrintPlaylistNode();
+            headNode = headNode->GetNext();
+         }
+      } 
+    }
    }else if (option == 'q'){
     //QUIT 
    }
