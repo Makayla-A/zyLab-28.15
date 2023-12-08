@@ -24,44 +24,65 @@ void PrintMenu(const string playlistTitle) {
 //STEP 4 
 PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headNode) {
    
-   //ADD SONG  (STEP 7)
-   if (option == 'a'){
-    cout << "ADD SONG: " << endl;
-    string uniqueID;
-    string songName;
-    string artistName;
-    int songLength;
-   
-    cout << "Enter song's unique ID: " << endl;
-    cin.ignore();
-    getline(cin, uniqueID);
+   if (option == 'o') {
+     if (headNode == nullptr) {
+        cout << "\nPlaylist is empty" << endl << endl;
+        return headNode;
+     }
+     cout << playlistTitle << " - OUTPUT FULL PLAYLIST";
+     
+     PlaylistNode* curr = headNode->GetNext();
+     
+     if (curr == nullptr) {
+      cout << "\nPlaylist is empty" << endl << endl;  
+      return headNode;
+     }
+     cout << endl;
+    int songNum = 1;
+    while (curr != nullptr) {
+    cout << songNum << ".\n";
+    curr -> PrintPlaylistNode();
+    cout << endl;
     
-    cout << "Enter song's name: " << endl;
-    cin.ignore();
+    songNum++;
+    curr = curr->GetNext();  
+   }
+   
+   } else if (option == 'a'){     //end of option o 
+
+   string test = ""; 
+   
+   PlaylistNode* curr = headNode;
+   
+   while (curr->GetNext() != nullptr) {
+      curr = curr->GetNext();
+   }
+   
+   string uniqueID, songName, artistName;
+   int songLength;
+   
+   cout << "ADD SONG" << endl << "Enter song's unique ID:" << endl; //ADD SONG  (STEP 7)
+      cin >> uniqueID;
+      getline (cin, test);
+    
+    cout << "Enter song's name:" << endl;
+    //cin.ignore();
     getline(cin, songName);
     
-    cout << "Enter artist's name: " << endl;
+    cout << "Enter artist's name:" << endl;
+    //cin.ignore();
     getline(cin, artistName);
     
-    cout << "Enter song's length (in seconds): " << endl;
+    cout << "Enter song's length (in seconds):" << endl;
     cin >> songLength;
+    getline(cin, test);
     
     // add the new node to the playlist 
+    curr->SetNext(new PlaylistNode (uniqueID, songName, artistName, songLength));
     
-   PlaylistNode* newNode = new PlaylistNode(uniqueID, songName, artistName, songLength);
-   
-   // if the list is empty, make the new node the head
-        if (headNode == nullptr) {
-            headNode = newNode;
-        } else {
-            // go through the list to find the last node
-            PlaylistNode* current = headNode;
-            while (current->GetNext() != nullptr) {  
-                current = current->GetNext();   //go through all of the nodes until the last one 
-            } 
-            // Add the new node after the last node
-            current->InsertAfter(newNode);
-        }
+    cout << endl;
+   } 
+
       // STEP 8: Implement the "Remove song" menu option in ExecuteMenu()
     else if (option == 'd') {
          string uniqueID;
@@ -117,52 +138,25 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
          }
          cout << sum << " seconds\n" << endl;
       }
-
-   if (headNode == nullptr)
-   {
-      cout << "Playlist is empty" << endl;
-      return headNode;
-   }
-   
-   cout << playlistTitle << "- OUTPUT FULL PLAYLIST";
-   PlaylistNode* curr = headNode->GetNext();
-   
-   if (curr == nullptr)
-   {
-      cout << "Playlist is empty" << endl;
-      return headNode;
-   }
-   
-   cout << endl;
-   
-   int index = 1;
-   while (curr != nullptr)
-   {
-      cout << index << ".\n";
-      curr->PrintPlaylistNode();
-      cout << endl;
-      
-      index++;
-      curr = curr->GetNext();
-   }
-    else if (option == 'q'){
-    //QUIT 
-    }
     return headNode;
-}
-   
-   
-
-int main() 
-{
+}   
+int main() {
+  //STEP 2
    string playlistTitle;
-   cout << "Enter playlist's title:" << endl << endl;
+   cout << "Enter playlist's title:" << endl;
+   
    getline(cin, playlistTitle);
    
-   PlaylistNode* head = new PlaylistNode();
+   cout << endl; 
    
-   char input;
+   PlaylistNode* headNode = new PlaylistNode();
    
+   char userChoice = '0';
+   while(userChoice != 'q'){
+
+     PrintMenu(playlistTitle);
+
+   //Step5
    while (input != 'q')
    {
       PrintMenu(playlistTitle);
