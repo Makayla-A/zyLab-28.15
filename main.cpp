@@ -23,7 +23,8 @@ void PrintMenu(const string playlistTitle) {
 
 //STEP 4 
 PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headNode) {
-   
+
+   //step 6: makayla
    if (option == 'o') {
      if (headNode == nullptr) {
         cout << "\nPlaylist is empty" << endl << endl;
@@ -156,7 +157,7 @@ int main() {
 
      PrintMenu(playlistTitle);
 
-   //Step5
+   //Step 5, makayla 
    while (input != 'q')
    {
       PrintMenu(playlistTitle);
