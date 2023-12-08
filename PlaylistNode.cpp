@@ -49,8 +49,9 @@ PlaylistNode* PlaylistNode::GetNext()
 
 void PlaylistNode::InsertAfter(PlaylistNode* nodeLoc)
 {
-   nodeLoc->nextNodeRef = nextNodeRef;
+   PlaylistNode* tmp = nextNodeRef;
    nextNodeRef = nodeLoc;
+   nodeLoc->nextNodeRef = tmp;
 }
 
 void PlaylistNode::SetNext(PlaylistNode* node)
