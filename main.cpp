@@ -1,3 +1,7 @@
+//Maki Girma
+//Makayla Alston
+//Cameron Tofani
+
 #include <iostream>
 #include "PlaylistNode.h"
 
@@ -58,46 +62,92 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
             // Add the new node after the last node
             current->InsertAfter(newNode);
         }
+      // STEP 8: Implement the "Remove song" menu option in ExecuteMenu()
+      else if(option == 'd') {
+      string songID;
+      cout << "REMOVE SONG\nEnter song's unique ID:\n";
+      cin >> songID;
 
-   }else if (option == 'd'){
-    //REMOVE SONG  
-   }else if (option == 'c'){
-    //CHANGE POSITION OF SONG  
-   } else if (option == 's'){
-    //OUTPUT SONGS BY SPESIFIC ARTIST   
-   }else if (option == 't'){
-    //OUTPUT TOTAL TILE OF PLAYLIST  
-   }else if (option == 'o')
-   {
-      if (headNode == nullptr)
-      {
-         cout << "Playlist is empty" << endl;
-         return headNode;
+      PlaylistNode* curr = headNode;
+      while(curr->GetNext() != nullptr) {
+      if(curr->GetNext()->GetID() == songID) {
+         cout << "\"" << curr->GetNext()->GetSongName() << "\" removed.\n\n";
+
+            curr->SetNext(curr->GetNext()->GetNext());
+
+      }  else {
+            curr = curr->GetNext();
+         }
       }
-      
-      cout << playlistTitle << "- OUTPUT FULL PLAYLIST";
-      PlaylistNode* curr = headNode->GetNext();
-      
-      if (curr == nullptr)
-      {
-         cout << "Playlist is empty" << endl;
-         return headNode;
-      }
-      
-      cout << endl;
-      
-      int index = 1;
-      while (curr != nullptr)
-      {
-         cout << index << ".\n";
-         curr->PrintPlaylistNode();
-         cout << endl;
+      //cout << "Error: PlaylistNode for ID " << songID << " not found\n"; //over-engineered (dont actually need for this program)
+   }
          
-         index++;
+   //STEP 10: Implement the "Output songs by specific artist" menu option in ExecuteMenu()
+   else if(option == 's') {
+   string dummyRead; //used for getting rid of newline char
+      string name;
+      cout << "OUTPUT SONGS BY SPECIFIC ARTIST\nEnter artist's name:\n\n";
+      getline(cin, dummyRead);
+      getline(cin, name);
+
+      PlaylistNode* curr = headNode->GetNext(); 
+      int songNum = 1; 
+      while(curr != nullptr) {
+         if(curr->GetArtistName() == name) {
+            cout << songNum << ".\n";
+
+               curr->PrintPlaylistNode();
+
+            cout << endl; 
+         }
+      
+         songNum++;
          curr = curr->GetNext();
       }
-   } 
-   } else if (option == 'q'){
+   }
+
+   //STEP 11: Implement the "Output total time of playlist" menu option in ExecuteMenu()
+   else if(option == 't') {
+   cout << "OUTPUT TOTAL TIME OF PLAYLIST (IN SECONDS)\nTotal time: ";
+
+      PlaylistNode* curr = headNode->GetNext(); 
+      int timeSum = 0; 
+      while(curr != nullptr) {
+         timeSum += curr->GetSongLength();
+   
+         curr = curr->GetNext();
+      }
+
+      cout << timeSum << " seconds\n\n";
+   }
+   if (headNode == nullptr)
+   {
+      cout << "Playlist is empty" << endl;
+      return headNode;
+   }
+   
+   cout << playlistTitle << "- OUTPUT FULL PLAYLIST";
+   PlaylistNode* curr = headNode->GetNext();
+   
+   if (curr == nullptr)
+   {
+      cout << "Playlist is empty" << endl;
+      return headNode;
+   }
+   
+   cout << endl;
+   
+   int index = 1;
+   while (curr != nullptr)
+   {
+      cout << index << ".\n";
+      curr->PrintPlaylistNode();
+      cout << endl;
+      
+      index++;
+      curr = curr->GetNext();
+   }
+    else if (option == 'q'){
     //QUIT 
     }
     return headNode;
