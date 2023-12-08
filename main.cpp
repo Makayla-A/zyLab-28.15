@@ -69,23 +69,34 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
     //OUTPUT TOTAL TILE OF PLAYLIST  
    }else if (option == 'o')
    {
-      //OUTPUT FULL PLAYLIST
-      cout << playlistTitle << " - OUTPUT FULL PLAYLIST" << endl;
-      //step 6: output full playlist
       if (headNode == nullptr)
       {
          cout << "Playlist is empty" << endl;
+         return headNode;
       }
-      //PlaylistNode* curr = headNode;
-      else
+      
+      cout << playlistTitle << "- OUTPUT FULL PLAYLIST";
+      PlaylistNode* curr = headNode->GetNext();
+      
+      if (curr == nullptr)
       {
-         while (headNode != nullptr)
-         {
-            headNode->PrintPlaylistNode();
-            headNode = headNode->GetNext();
-         }
-      } 
-    
+         cout << "Playlist is empty" << endl;
+         return headNode;
+      }
+      
+      cout << endl;
+      
+      int index = 1;
+      while (curr != nullptr)
+      {
+         cout << index << ".\n";
+         curr->PrintPlaylistNode();
+         cout << endl;
+         
+         index++;
+         curr = curr->GetNext();
+      }
+   } 
    } else if (option == 'q'){
     //QUIT 
     }
@@ -94,31 +105,23 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
    
    
 
-int main() {
-   //STEP 2
-   cout << "Enter playlist's title:" << endl;
-   cout << endl; 
+int main() 
+{
    string playlistTitle;
+   cout << "Enter playlist's title:" << endl << endl;
    getline(cin, playlistTitle);
    
-   PlaylistNode* headNode = nullptr;
+   PlaylistNode* head = new PlaylistNode();
    
-   char option; 
-   do{
-     PrintMenu(playlistTitle); 
-      cout << endl <<"Choose an option:"<< endl;
-      cin >> option;
-      
-      //if an invadid character is entered, continue promting 
-       while (option != 'a' && option != 'd' && option != 'c' &&
-               option != 's' && option != 't' && option != 'o' && option != 'q') {
-            cout << "Invalid choice. Choose a valid character: ";
-            cin >> option;
-               }
-            headNode = ExecuteMenu(option, playlistTitle, headNode); // update head
-            //PrintMenu(playlistTitle); //print menu again after they pick, keeps going till q
-               
-   }while (option != 'q');
+   char input;
+   
+   while (input != 'q')
+   {
+      PrintMenu(playlistTitle);
+      cout << "\nChoose an option:\n";
+      cin >> input;
+      ExecuteMenu(input, playlistTitle, head);
+   }
    
    return 0;
 }
